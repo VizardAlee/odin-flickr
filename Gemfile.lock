@@ -103,6 +103,7 @@ GEM
     drb (2.2.1)
     error_highlight (0.7.0)
     erubi (1.13.0)
+    flickraw (0.9.10)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -314,6 +315,7 @@ DEPENDENCIES
   capybara
   debug
   error_highlight (>= 0.4.0)
+  flickraw
   importmap-rails
   jbuilder
   puma (>= 5.0)

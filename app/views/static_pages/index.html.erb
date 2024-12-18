@@ -1,0 +1,40 @@
+<h1>Flickr Photo Search</h1>
+
+<!-- Search Forms -->
+<div class="mb-6">
+  <!-- Search by User ID -->
+  <%= form_with url: root_path, method: :get, local: true do |form| %>
+    <div class="mb-4">
+      <%= form.label :user_id, "Search by User ID", class: "block font-bold mb-2" %>
+      <%= form.text_field :user_id, class: "form-control border rounded p-2 w-full", placeholder: "Enter User ID" %>
+    </div>
+    <%= form.submit "Search by User ID", class: "bg-blue-500 text-white p-2 rounded" %>
+  <% end %>
+
+  <!-- Search by Query -->
+  <%= form_with url: root_path, method: :get, local: true do |form| %>
+    <div>
+      <%= form.label :query, "Search by Query", class: "block font-bold mb-2" %>
+      <%= form.text_field :query, class: "form-control border rounded p-2 w-full", placeholder: "Enter search term" %>
+    </div>
+    <%= form.submit "Search by Query", class: "bg-green-500 text-white p-2 rounded mt-2" %>
+  <% end %>
+</div>
+
+<!-- Display Search Results -->
+<% if @photos.present? %>
+  <h2 class="text-2xl font-bold mb-4">Flickr Search Results</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <% @photos.each do |photo| %>
+      <% url = "https://live.staticflickr.com/#{photo[:server]}/#{photo[:id]}_#{photo[:secret]}_z.jpg" %>
+      <img src="<%= url %>" alt="<%= photo[:title] %>">
+    <% end %>
+  </div>
+<% else %>
+  <!-- No Results Found -->
+  <% if params[:user_id].present? %>
+    <p class="text-gray-500 mt-4">No photos found for User ID "<%= params[:user_id] %>".</p>
+  <% elsif params[:query].present? %>
+    <p class="text-gray-500 mt-4">No photos found for search term "<%= params[:query] %>".</p>
+  <% end %>
+<% end %>
